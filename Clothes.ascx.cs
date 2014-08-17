@@ -214,15 +214,15 @@ namespace Cowrie.Modules.Clothes
 
             //Add Module
             DesktopModuleController objDMC = new DesktopModuleController();
-            DesktopModuleInfo desktopModuleInfo = objDMC.GetDesktopModuleByName("ProductList");
+            DesktopModuleInfo desktopModuleInfo = objDMC.GetDesktopModuleByName("Clothes");
 
             ModuleDefinitionInfo moduleDefinitionInfo = new ModuleDefinitionInfo();
             ModuleInfo moduleInfo = new ModuleInfo();
             moduleInfo.PortalID = PortalId;
             moduleInfo.TabID = tabId;
             moduleInfo.ModuleOrder = 1;
-            moduleInfo.ModuleTitle = "Product List";
-            moduleInfo.PaneName = "Product List";
+            moduleInfo.ModuleTitle = "Clothes";
+            moduleInfo.PaneName = "Clothes";
             moduleInfo.ModuleDefID = 160;
             moduleInfo.CacheTime = moduleDefinitionInfo.DefaultCacheTime; //Default Cache Time is 0
             moduleInfo.InheritViewPermissions = true; //Inherit View Permissions from Tab
@@ -263,7 +263,7 @@ namespace Cowrie.Modules.Clothes
             AddActionHandler(ModuleAction_Click);
 
             ModuleController moduleController = new ModuleController();
-            ArrayList hotelListModules = moduleController.GetModulesByDefinition(PortalId, "Cloth Details");
+            ArrayList hotelListModules = moduleController.GetModulesByDefinition(PortalId, "ClothDetails");
             if (hotelListModules.Count > 0)
             {
                 ModuleInfo module = hotelListModules.OfType<ModuleInfo>().First();
@@ -493,7 +493,7 @@ namespace Cowrie.Modules.Clothes
 
         private IQueryable<Cloth> GetClothes(SelectedHotelsEntities db, int? departmentId = null, int? merchantCategoryId = null)
         {
-            var clothes = db.Products.Where(p => !p.IsDeleted).OfType<Cloth>() as IQueryable<Cloth>;
+            var clothes = db.Products.Where(p => !p.IsDeleted).OfType<Cloth>();
             if (departmentId.HasValue)
             {
                 clothes = clothes.Where(c => c.Departments.Any(d => d.Id == departmentId));
